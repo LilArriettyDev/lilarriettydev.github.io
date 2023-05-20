@@ -1,0 +1,6 @@
+header img.w3-image {
+    filter: grayscale(1) brightness(0.9);
+}
+header img.w3-image:hover{
+    filter: unset;
+}
