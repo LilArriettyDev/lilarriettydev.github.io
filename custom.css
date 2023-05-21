@@ -50,7 +50,6 @@ header img.w3-image:hover{
         column-count: 2;
     }
 }
-
 @media screen and (max-width: 600px) {
     .masonry {
         column-count: 1;
