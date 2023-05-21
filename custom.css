@@ -20,19 +20,6 @@ header img.w3-image:hover{
     color: #007bff;
     transition: color 0.3s;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 .masonry {
     column-count: 4;
     column-gap: 15px;
