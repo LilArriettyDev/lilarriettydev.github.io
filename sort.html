@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Dynamic Input Fields</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <style>
+        .badge {
+            font-size: 2rem;
+            opacity: 0; /* Start with badges hidden */
+            animation: fadeIn 1s forwards;
+            margin-right: 4px;
+        }
+
+        #demo {
+            margin-left: 20px;
+            margin-top: 15px;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+
+
+</head>
+<body>
+<div class="bg-dark text-secondary px-4 py-5 text-white">
+    <h1 class="text-center display-5">NumSorter Magic</h1>
+    <p class="text-center mt-3 fs-6">Enter any number of values and use NumSorter Magic to sort them numerically or
+        alphabetically with just a click.</p>
+
+</div>
+<div class="container" style="max-width: 60%; margin: auto;">
+
+    <div class="row justify-content-center mb-3 mt-4">
+
+        <span class="text-center ">How many numbers do you need to sort?</span>
+        <input type="number" min="0" id="numFields" value="8" class="form-control text-center mt-1" style=""/>
+        <button type="button" class="btn btn-secondary mt-1" onclick="generateFields()">Generate Fields</button>
+        <span class="text-center mt-3">Enter your numbers:</span>
+        <div id="fieldContainer" class="row"></div>
+    </div>
+
+    <div class="row mt-2 my-3">
+        <button class="btn btn-warning me-2" onclick="sortNumerically()">Sort Numerically</button>
+        <button class="btn mt-3 btn-info" onclick="sortAlphabetically()">Sort Alphabetically</button>
+    </div>
+
+    <div id="demo" class=""></div>
+</div>
+<script>
+    function generateFields() {
+        const container = document.getElementById("fieldContainer");
+        const numberOfFields = document.getElementById("numFields").value;
+        console.log(numberOfFields);
+        container.innerHTML = "";
+        // const hi = '<label id="vanishIfNone">Enter your numbers:</label><br>';
+        // container.innerHTML(hi);
+        for (let i = 0; i < numberOfFields; i++) {
+            const input = document.createElement("input");
+            input.id = "a" + i;
+            input.type = "number";
+            input.classList.add("form-control");
+            input.classList.add("col-md-3");
+            input.style.marginRight = "10px";
+            input.style.marginBottom = "10px";
+            input.style.width = "100px";
+            container.appendChild(input);
+        }
+    }
+
+    generateFields();
+
+    function getDynamicPoints() {
+        const inputs = document.getElementById('fieldContainer').getElementsByTagName('input');
+        return Array.from(inputs).map(input => parseFloat(input.value));
+    }
+
+    function displayWithBadges(points) {
+        const demoElement = document.getElementById("demo");
+        demoElement.innerHTML = ''; // Clear the previous content
+
+        points.forEach((point, index) => {
+            const badge = document.createElement("h1");
+            badge.classList.add("badge", "text-bg-success");
+            badge.textContent = point;
+            // Set an increasing delay for each badge, making them appear one by one
+            badge.style.animation = `fadeIn 1s ${index * 0.5}s forwards`;
+            demoElement.appendChild(badge);
+        });
+    }
+
+
+    function sortNumerically() {
+        const points = getDynamicPoints()
+            .map(Number)
+            .filter(value => !isNaN(value));
+        points.sort((a, b) => a - b);
+        displayWithBadges(points); // Display with badges
+    }
+
+    function sortAlphabetically() {
+        const points = getDynamicPoints()
+            .filter(value => !isNaN(value))
+            .map(value => value.toString()); // Ensure all values are strings
+        points.sort();
+        displayWithBadges(points); // Display with badges
+    }
+
+
+</script>
+</body>
+</html>
