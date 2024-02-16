@@ -35,7 +35,8 @@
 </head>
 <body>
 <div class="bg-dark text-secondary px-4 py-5 text-white">
-    <a href="https://arrietty.me" class="btn btn-primary text-center" tabindex="-1" role="button" aria-disabled="true" target="_blank">Go to arrietty.me</a>
+    <a href="https://arrietty.me" class="btn btn-primary text-center" tabindex="-1" role="button" aria-disabled="true"
+       target="_blank">Go to arrietty.me</a>
     <h1 class="text-center display-5">NumSorter Magic</h1>
     <p class="text-center mt-3 fs-6">Enter any number of values and use NumSorter Magic to sort them numerically or
         alphabetically with just a click.</p>
@@ -51,7 +52,29 @@
         <span class="text-center mt-3">Enter your numbers:</span>
         <div id="fieldContainer" class="row"></div>
     </div>
-
+    <div class="form-check form-check-inline m->">
+        <input class="form-check-input"
+               type="radio"
+               name="options"
+               id="ascending"
+               autocomplete="off">
+        <label class="form-check-label"
+               for="defaultRadioSwitch">
+            Ascending Order
+        </label>
+    </div>
+    <div class="form-check form-check-inline m->">
+        <input class="form-check-input"
+               type="radio"
+               name="options"
+               id="descinding"
+               autocomplete="off"
+               checked>
+        <label class="form-check-label"
+               for="checkedRadioSwitch">
+            Descinding Order
+        </label>
+    </div>
     <div class="row mt-2 my-3">
         <button class="btn btn-warning me-2" onclick="sortNumerically()">Sort Numerically</button>
         <button class="btn mt-3 btn-info" onclick="sortAlphabetically()">Sort Alphabetically</button>
@@ -65,7 +88,6 @@
         const numberOfFields = document.getElementById("numFields").value;
         console.log(numberOfFields);
         container.innerHTML = "";
-        // const hi = '<label id="vanishIfNone">Enter your numbers:</label><br>';
         // container.innerHTML(hi);
         for (let i = 0; i < numberOfFields; i++) {
             const input = document.createElement("input");
@@ -106,7 +128,11 @@
         const points = getDynamicPoints()
             .map(Number)
             .filter(value => !isNaN(value));
-        points.sort((a, b) => a - b);
+        if (document.getElementById("ascending").checked){
+            points.sort((a, b) => a - b);
+        }else {
+            points.sort((a, b) => b - a);
+        }
         displayWithBadges(points); // Display with badges
     }
 
@@ -114,7 +140,12 @@
         const points = getDynamicPoints()
             .filter(value => !isNaN(value))
             .map(value => value.toString()); // Ensure all values are strings
-        points.sort();
+        if (document.getElementById("ascending").checked){
+            points.sort();
+        }else {
+            points.sort();
+            points.reverse();
+        }
         displayWithBadges(points); // Display with badges
     }
 
