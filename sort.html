@@ -57,7 +57,7 @@
                type="radio"
                name="options"
                id="ascending"
-               autocomplete="off">
+               checked>
         <label class="form-check-label"
                for="defaultRadioSwitch">
             Ascending Order
@@ -69,7 +69,6 @@
                name="options"
                id="descinding"
                autocomplete="off"
-               checked>
         <label class="form-check-label"
                for="checkedRadioSwitch">
             Descinding Order
@@ -128,9 +127,9 @@
         const points = getDynamicPoints()
             .map(Number)
             .filter(value => !isNaN(value));
-        if (document.getElementById("ascending").checked){
+        if (document.getElementById("ascending").checked) {
             points.sort((a, b) => a - b);
-        }else {
+        } else {
             points.sort((a, b) => b - a);
         }
         displayWithBadges(points); // Display with badges
@@ -140,9 +139,9 @@
         const points = getDynamicPoints()
             .filter(value => !isNaN(value))
             .map(value => value.toString()); // Ensure all values are strings
-        if (document.getElementById("ascending").checked){
+        if (document.getElementById("ascending").checked) {
             points.sort();
-        }else {
+        } else {
             points.sort();
             points.reverse();
         }
